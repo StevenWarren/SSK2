@@ -258,6 +258,37 @@ function buttons:newButton( parentGroup, params )
       end
    end
 
+      -- BUTTON Overlay Image
+   if(buttonInstance.buttonIconImgSrc) then
+      local iconImage = display.newImageRect( buttonInstance.buttonIconImgSrc, buttonInstance.baseFolder, buttonInstance.buttonIconImgWidth, buttonInstance.buttonIconImgHeight)
+      buttonInstance:insert( iconImage, false )
+      buttonInstance.iconImage = iconImage
+
+
+      if(buttonInstance.buttonIconFillColor ) then
+         local r = fnn(buttonInstance.buttonIconFillColor[1], 1)
+         local g = fnn(buttonInstance.buttonIconFillColor[2], 1)
+         local b = fnn(buttonInstance.buttonIconFillColor[3], 1)
+         local a = fnn(buttonInstance.buttonIconFillColor[4], 1)
+         buttonInstance.iconImage:setFillColor(r,g,b,a)
+      end
+
+      
+   end
+
+      -- ==
+   --    buttonInstance:adjustLabelOffset( offset ) - Adjust the x- and y-offset of the current button's (labelText) label.
+   --    
+   --    offset - An indexed table containing two values, where value [1] is the x-offset, and value [2] is the y-offset.
+   -- ==
+   function buttonInstance:adjustIconOffset( offset ) 
+      local offset = fnn(offset, {0,0})
+      local myLabel = self.iconImage
+      self.iconImageOffset = offset
+      myLabel.x = self.iconImageOffset[1]
+      myLabel.y = self.iconImageOffset[2]
+   end
+
    -- BUTTON TEXT
    local labelText 
    if(buttonInstance.emboss) then
